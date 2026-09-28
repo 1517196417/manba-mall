@@ -1,0 +1,25 @@
+{
+  "name": "abcmall-frontend",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "AbcMall 阿帕茨商城 - 用户端前台 (Vue3 + ElementPlus + Axios)",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview --port 5173"
+  },
+  "dependencies": {
+    "@element-plus/icons-vue": "^2.3.1",
+    "axios": "^1.7.7",
+    "axios-eventsource": "^0.2.4",
+    "element-plus": "^2.8.4",
+    "pinia": "^2.2.4",
+    "vue": "^3.5.11",
+    "vue-router": "^4.4.5"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^5.1.4",
+    "vite": "^5.4.8"
+  }
+}

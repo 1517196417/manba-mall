@@ -1,0 +1,102 @@
+server:
+  port: 8080
+  servlet:
+    session:
+      timeout: 2h
+      cookie:
+        name: ABCMALLSESSIONID
+        http-only: true
+        path: /
+  tomcat:
+    uri-encoding: UTF-8
+
+spring:
+  application:
+    name: abcmall
+
+  # ============ 数据源：请按本机情况修改账号密码 ============
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/abcmall?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai&useSSL=false&allowPublicKeyRetrieval=true&rewriteBatchedStatements=true
+    username: root
+    password: 123456
+
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+    serialization:
+      write-dates-as-timestamps: false
+
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 20MB
+
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: true
+    # log-impl: org.apache.ibatis.logging.slf4j.Slf4jImpl
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  global-config:
+    banner: false
+    db-config:
+      id-type: auto
+      table-underline: true
+  mapper-locations: classpath*:/mapper/**/*.xml
+  type-aliases-package: com.abcmall.entity
+
+# ============ 业务参数 ============
+abcmall:
+  # 会话中保存用户ID的属性名
+  session-user-key: ABCMALL_USER_ID
+  # 包邮门槛（元）
+  free-freight-threshold: 99
+  # 默认运费（元）
+  default-freight: 12
+  # 订单未支付自动取消时间（分钟）
+  order-auto-cancel-minutes: 30
+  # 积分兑换比例：消费 1 元返多少积分
+  order-points-rate: 1
+  # 签到基础积分
+  sign-points: 100
+  # 连续签到满多少天额外奖励
+  sign-continuous-days: 7
+  # 连续签到奖励积分
+  sign-continuous-points: 800
+
+logging:
+  level:
+    root: info
+    com.abcmall: info
+  pattern:
+    console: "%d{HH:mm:ss.SSS} %-5level [%thread] %logger{36} - %msg%n"
+
+# ============ SpringAI 配置 ============
+spring.ai.openai:
+  # API 密钥（DeepSeek）
+  api-key: sk-e1835f1e4f684dc99370a56b3148fb6d
+  # 基础URL（DeepSeek OpenAI 兼容接口，不要加 /v1）
+  base-url: https://api.deepseek.com
+  chat.options:
+    model: deepseek-chat             # DeepSeek 聊天模型
+    temperature: 0.6                 # 温度参数
+  embedding.options.model: text-embedding-3-small  # 向量模型（DeepSeek 无 Embedding，需替换为其他服务）
+
+# ============ AI 客服参数 ============
+abcmall.smai:
+  # 聊天历史保留条数-高水位
+  chat-history-high-watermark: 20
+  # 聊天历史保留条数-低水位
+  chat-history-low-watermark: 10
+  # 商品召回数量（LIKE 搜索）
+  product-recall-limit: 20
+  # 历史订单召回数量
+  order-history-limit: 2
+
+  # RAG 知识库文档目录（classpath 或 file: 前缀）
+  rag-docs-path: classpath:rag-docs
+  # RAG 检索 topK
+  rag-top-k: 5
+  # RAG 向量缓存文件路径（节省 Embedding Token，未变更时直接从缓存加载）
+  rag-cache-file: rag-vector-cache.json
+

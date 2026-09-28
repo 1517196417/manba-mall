@@ -1,0 +1,244 @@
+/* ==========================================================================
+   AbcMall 全局样式
+   ========================================================================== */
+
+:root {
+  --abc-primary: #ff5000;
+  --abc-primary-dark: #e04600;
+  --abc-primary-light: #fff2ec;
+  --abc-price: #ff0036;
+  --abc-success: #28a745;
+  --abc-warning: #ff9500;
+  --abc-text: #1f2329;
+  --abc-text-2: #5c6672;
+  --abc-text-3: #98a2b3;
+  --abc-border: #ebeef5;
+  --abc-bg: #f5f6f8;
+  --abc-radius: 12px;
+  --abc-shadow: 0 2px 12px rgba(15, 23, 42, 0.06);
+  --abc-shadow-hover: 0 12px 28px rgba(15, 23, 42, 0.12);
+  --abc-max-width: 1240px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#app {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Microsoft YaHei', 'PingFang SC', 'Hiragino Sans GB', Helvetica, Arial, sans-serif;
+  background: var(--abc-bg);
+  color: var(--abc-text);
+  font-size: 14px;
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+/* ---------- 通用容器 ---------- */
+.abc-container {
+  width: 100%;
+  max-width: var(--abc-max-width);
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+.abc-card {
+  background: #fff;
+  border-radius: var(--abc-radius);
+  box-shadow: var(--abc-shadow);
+}
+
+.abc-section {
+  margin-top: 20px;
+}
+
+.abc-section__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+
+.abc-section__title {
+  font-size: 20px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.abc-section__title::before {
+  content: '';
+  width: 4px;
+  height: 18px;
+  border-radius: 2px;
+  background: linear-gradient(180deg, var(--abc-primary), #ff9500);
+}
+
+.abc-section__more {
+  color: var(--abc-text-2);
+  font-size: 13px;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.abc-section__more:hover {
+  color: var(--abc-primary);
+}
+
+/* ---------- 价格 ---------- */
+.abc-price {
+  color: var(--abc-price);
+  font-weight: 700;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.abc-price__symbol {
+  font-size: 13px;
+}
+
+.abc-price__value {
+  font-size: 20px;
+}
+
+.abc-price--large .abc-price__value {
+  font-size: 28px;
+}
+
+.abc-price--small .abc-price__value {
+  font-size: 16px;
+}
+
+.abc-market-price {
+  color: var(--abc-text-3);
+  text-decoration: line-through;
+  font-size: 12px;
+  margin-left: 6px;
+}
+
+/* ---------- 标签 ---------- */
+.abc-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.abc-tag {
+  display: inline-block;
+  padding: 0 6px;
+  height: 18px;
+  line-height: 18px;
+  font-size: 11px;
+  border-radius: 3px;
+  color: var(--abc-primary);
+  background: var(--abc-primary-light);
+  border: 1px solid rgba(255, 80, 0, 0.25);
+}
+
+/* ---------- 图片容器 ---------- */
+.abc-img-box {
+  position: relative;
+  overflow: hidden;
+  background: #f2f3f5;
+}
+
+.abc-img-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.abc-hover-zoom:hover .abc-img-box img {
+  transform: scale(1.06);
+}
+
+/* ---------- 空状态 ---------- */
+.abc-empty {
+  padding: 48px 0;
+  text-align: center;
+  color: var(--abc-text-3);
+}
+
+/* ---------- 文字工具 ---------- */
+.abc-ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.abc-ellipsis-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.abc-ellipsis-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* ---------- 滚动条 ---------- */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #d0d5dd;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #b0b7c3;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* ---------- Element Plus 主题微调 ---------- */
+.el-button--primary {
+  --el-button-bg-color: var(--abc-primary);
+  --el-button-border-color: var(--abc-primary);
+  --el-button-hover-bg-color: var(--abc-primary-dark);
+  --el-button-hover-border-color: var(--abc-primary-dark);
+  --el-button-active-bg-color: var(--abc-primary-dark);
+  --el-button-active-border-color: var(--abc-primary-dark);
+}
+
+.el-tabs__item.is-active {
+  color: var(--abc-primary);
+}
+
+.el-tabs__active-bar {
+  background-color: var(--abc-primary);
+}
+
+.el-pagination.is-background .el-pager li.is-active {
+  background-color: var(--abc-primary);
+}
+
+.el-link.el-link--primary {
+  --el-link-text-color: var(--abc-primary);
+  --el-link-hover-text-color: var(--abc-primary-dark);
+}

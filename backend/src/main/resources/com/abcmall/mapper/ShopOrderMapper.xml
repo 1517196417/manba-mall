@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.abcmall.mapper.ShopOrderMapper">
+
+    <resultMap id="BaseResultMap" type="com.abcmall.entity.ShopOrder">
+        <id property="id" column="id" />
+        <result property="orderNo" column="order_no" />
+        <result property="userId" column="user_id" />
+        <result property="totalAmount" column="total_amount" />
+        <result property="freight" column="freight" />
+        <result property="discountAmount" column="discount_amount" />
+        <result property="payAmount" column="pay_amount" />
+        <result property="userCouponId" column="user_coupon_id" />
+        <result property="pointsDeduct" column="points_deduct" />
+        <result property="pointsUsed" column="points_used" />
+        <result property="balanceUsed" column="balance_used" />
+        <result property="payType" column="pay_type" />
+        <result property="payStatus" column="pay_status" />
+        <result property="orderStatus" column="order_status" />
+        <result property="deliveryType" column="delivery_type" />
+        <result property="addressId" column="address_id" />
+        <result property="receiver" column="receiver" />
+        <result property="receiverPhone" column="receiver_phone" />
+        <result property="receiverAddr" column="receiver_addr" />
+        <result property="remark" column="remark" />
+        <result property="invoiceTitle" column="invoice_title" />
+        <result property="invoiceTaxNo" column="invoice_tax_no" />
+        <result property="cancelReason" column="cancel_reason" />
+        <result property="createTime" column="create_time" />
+        <result property="payTime" column="pay_time" />
+        <result property="deliveryTime" column="delivery_time" />
+        <result property="receiveTime" column="receive_time" />
+        <result property="finishTime" column="finish_time" />
+        <result property="cancelTime" column="cancel_time" />
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,order_no,user_id,total_amount,freight,discount_amount,
+        pay_amount,user_coupon_id,points_deduct,points_used,balance_used,
+        pay_type,pay_status,order_status,delivery_type,address_id,
+        receiver,receiver_phone,receiver_addr,remark,invoice_title,
+        invoice_tax_no,cancel_reason,create_time,pay_time,delivery_time,
+        receive_time,finish_time,cancel_time
+    </sql>
+
+
+    <select id="pageOrders" resultType="com.abcmall.entity.ShopOrder">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM shop_order o
+        <where>
+            o.user_id = #{userId}
+            <if test="status != null and status.size() > 0">
+                AND o.order_status IN
+                <foreach collection="status" item="s" open="(" separator="," close=")">
+                    #{s}
+                </foreach>
+            </if>
+            <if test="keyword != null and keyword.trim() != ''">
+                AND (
+                    o.order_no        LIKE #{keyword}
+                    OR o.receiver     LIKE #{keyword}
+                    OR o.receiver_phone LIKE #{keyword}
+                    OR o.id IN (
+                        SELECT oi.order_id FROM order_item oi
+                        WHERE
+                        (
+                            oi.product_name LIKE #{keyword}
+                            OR oi.sku_desc  LIKE #{keyword}
+                        )
+                    )
+                )
+            </if>
+        </where>
+        ORDER BY o.id DESC
+    </select>
+
+
+</mapper>

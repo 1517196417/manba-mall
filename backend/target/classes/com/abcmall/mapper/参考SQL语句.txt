@@ -1,0 +1,43 @@
+
+第一版，因为用了 with 子句，MyBatisPlus 分页插件不支持，所以作废了
+
+with a as (
+  select * from shop_order where user_id=1 and order_status in (0,1,2,3,6)
+)
+select * from a where
+order_no like '%牛奶%'
+or receiver like '%牛奶%'
+or receiver_phone like '%牛奶%'
+or id in (
+  select order_id from order_item
+  where (product_name like '%牛奶%' or sku_desc like '%牛奶%')
+  and order_id in (select id from a)
+)
+order by id desc
+
+-----------------------------------------------------------------------------
+
+第二版，没有使用 with 子句，可以工作
+
+        SELECT
+        *
+        FROM shop_order o
+        where
+            o.user_id = 1
+            AND o.order_status IN (0, 1, 2, 3, 6)
+
+            AND (
+                o.order_no        LIKE '%牛奶%'
+                OR o.receiver     LIKE '%牛奶%'
+                OR o.receiver_phone LIKE '%牛奶%'
+                OR o.id IN (
+                    SELECT oi.order_id FROM order_item oi
+                    WHERE
+                    (
+                        oi.product_name LIKE '%牛奶%'
+                        OR oi.sku_desc  LIKE '%牛奶%'
+                    )
+                )
+            )
+        ORDER BY o.id DESC
+
