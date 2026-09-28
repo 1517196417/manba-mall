@@ -205,4 +205,4 @@ A：修改 `backend/src/main/resources/application.yml` 中的 `spring.datasourc
 - 新增页面：在 `src/views/` 建 `.vue`，到 `src/router/index.js` 注册路由即可（未登录访问带 `requiresAuth` 的路由会自动跳登录页）。
 - 新增接口：在 `src/api/index.js` 对应模块中加一行，统一走 `request` 实例。
 - 新增「!」功能说明项：在 `src/config/features.js` 的 `FEATURES` 里加一个 key，「功能一览」页面会自动按分组渲染。
-111111
+  111111
